@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelApp-DotnetMVC", "TravelApp-DotnetMVC\TravelApp-DotnetMVC.csproj", "{3615A8B6-6D56-482A-A961-612C1A26DDE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "Tests\UnitTests\UnitTests.csproj", "{B66AAE6D-5BE7-4879-A837-CE1F82A16AC1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{3615A8B6-6D56-482A-A961-612C1A26DDE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3615A8B6-6D56-482A-A961-612C1A26DDE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3615A8B6-6D56-482A-A961-612C1A26DDE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B66AAE6D-5BE7-4879-A837-CE1F82A16AC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B66AAE6D-5BE7-4879-A837-CE1F82A16AC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B66AAE6D-5BE7-4879-A837-CE1F82A16AC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B66AAE6D-5BE7-4879-A837-CE1F82A16AC1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
