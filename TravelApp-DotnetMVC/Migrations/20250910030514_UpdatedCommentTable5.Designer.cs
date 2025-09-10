@@ -2,17 +2,20 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TravelApp_DotnetMVC.Data;
 
 #nullable disable
 
-namespace TravelApp_DotnetMVC.Data.Migrations
+namespace TravelApp_DotnetMVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250910030514_UpdatedCommentTable5")]
+    partial class UpdatedCommentTable5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -78,11 +81,6 @@ namespace TravelApp_DotnetMVC.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(21)
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("TEXT");
@@ -133,10 +131,6 @@ namespace TravelApp_DotnetMVC.Data.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -243,8 +237,6 @@ namespace TravelApp_DotnetMVC.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.HasIndex("DestinationId");
 
                     b.ToTable("Comment");
@@ -275,13 +267,6 @@ namespace TravelApp_DotnetMVC.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Destination");
-                });
-
-            modelBuilder.Entity("TravelApp_DotnetMVC.Models.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -337,12 +322,6 @@ namespace TravelApp_DotnetMVC.Data.Migrations
 
             modelBuilder.Entity("TravelApp_DotnetMVC.Models.Comment", b =>
                 {
-                    b.HasOne("TravelApp_DotnetMVC.Models.ApplicationUser", null)
-                        .WithMany("Comments")
-                        .HasForeignKey("ApplicationUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("TravelApp_DotnetMVC.Models.Destination", null)
                         .WithMany("Comments")
                         .HasForeignKey("DestinationId")
@@ -351,11 +330,6 @@ namespace TravelApp_DotnetMVC.Data.Migrations
                 });
 
             modelBuilder.Entity("TravelApp_DotnetMVC.Models.Destination", b =>
-                {
-                    b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("TravelApp_DotnetMVC.Models.ApplicationUser", b =>
                 {
                     b.Navigation("Comments");
                 });
