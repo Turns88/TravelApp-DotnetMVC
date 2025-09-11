@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using TravelApp_DotnetMVC.Data;
 using TravelApp_DotnetMVC.Models;
 namespace TravelApp_DotnetMVC.Controllers;
@@ -37,6 +38,13 @@ public class DestinationController : Controller
             select comment;
         
         return View(commentQuery);
+    }
+    
+[HttpGet]
+    public IActionResult Details(int id)
+    {
+        var destination = _context.Destination.Find(id);
+        return View(destination);
     }
     [HttpGet]
     public IActionResult Create()

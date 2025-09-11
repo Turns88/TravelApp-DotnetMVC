@@ -1,0 +1,21 @@
+@model TravelApp_DotnetMVC.Models.Destination?
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+<div class="container-md">
+    <div class="row">
+        <div class="col">
+            <h2>@Model.Name</h2>
+        </div>
+    </div>
+    <div class="row align-items-stretch">
+        <div class="col">
+            <p>@Model.Description</p>
+        </div>
+        <div class="col d-flex">
+            <img src="~/@Model.Image" class="img-fit w-100" style="max-height: 350px; object-fit: cover;"/>
+        </div>
+    </div> 
+</div>
