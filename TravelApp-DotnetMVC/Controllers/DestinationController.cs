@@ -9,10 +9,12 @@ public class DestinationController : Controller
     
     private readonly ILogger<DestinationController> _logger;
     private readonly ApplicationDbContext _context;
-    public DestinationController(ILogger<DestinationController> logger, ApplicationDbContext context)
+    private readonly IWebHostEnvironment _env;
+    public DestinationController(IWebHostEnvironment env ,ILogger<DestinationController> logger, ApplicationDbContext context)
     {
         _logger = logger;
         _context = context;
+        _env = env;
     }
 
     public IActionResult Index()
@@ -42,31 +44,44 @@ public class DestinationController : Controller
         return View();
     }
     [HttpPost]
-    public IActionResult Create(Destination destination, IFormFile image)
+    public IActionResult Create(Destination destination, IFormFile imageFile)
     {
         if (ModelState.IsValid)
         {
-            
-            
-            if (destination.Image != null && destination.Image.Length > 0)
+
+            if (imageFile != null && imageFile.Length > 0)
             {
-                MemoryStream ms = new MemoryStream();
-                image.CopyTo(ms);
-                destination.Image = ms.ToArray();
+                // Generate a unique file name
+                var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imageFile.FileName);
+
+                // Combine with wwwroot/images path
+                var filePath = Path.Combine(_env.WebRootPath, "images", fileName);
+
+                // Ensure the directory exists
+                Directory.CreateDirectory(Path.GetDirectoryName(filePath)!);
+
+                // Save the file
+                using (var stream = new FileStream(filePath, FileMode.Create))
+                {
+                    imageFile.CopyTo(stream);
+                }
+
+                // Store relative path in the database
+                destination.Image = $"images/{fileName}";
             }
+
             Destination newDestination = new Destination
-            {
-                Name = destination.Name,
-                Description = destination.Description,
-                Currency = destination.Currency,
-                Image = destination.Image
-            };
+                {
+                    Name = destination.Name,
+                    Description = destination.Description,
+                    Currency = destination.Currency,
+                    Image = destination.Image
+                };
 
+                _context.Destination.Add(newDestination);
+                _context.SaveChanges();
+            
 
-            _context.Destination.Add(newDestination);
-            _context.SaveChanges();
-            
-            
             return RedirectToAction(nameof(Index));
         }
         Console.WriteLine("ModelState not valid");

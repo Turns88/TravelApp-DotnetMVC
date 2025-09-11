@@ -10,7 +10,7 @@
     <form asp-controller="Destination" asp-action="Create" method="post" enctype="multipart/form-data">
         <label>Name:<input asp-for="Name" type="text"> </input></label> <br>
         <label>Description:<input asp-for="Description" type="text"/></label><br>
-        <label>Image:<input asp-for="Image" type="file"></input></label> <br>
+        <label>Image:<input name="imageFile" type="file"></input></label> <br>
         <label>Currency:<input asp-for="Currency" type="text"></input></label> <br>
         <input type="submit"/>
     </form>

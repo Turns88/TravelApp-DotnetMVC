@@ -10,9 +10,7 @@
     @foreach (var destination in Model)
     {
         <div class="card" style="width: 18rem;">
-            <img src="@(destination.Image != null 
-                          ? $"data:image/jpeg;base64,{Convert.ToBase64String(destination.Image)}" 
-                          : "/images/placeholder.png")" 
+            <img src="@destination.Image" 
                  class="card-img-top" 
                  alt="@destination.Name" />
             <div class="card-body">
